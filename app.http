@@ -1,5 +1,5 @@
 ## Global Variabel
-@BaseUrl = https://pam-2026-p4-ifs18005-be.delcom.org:8080
+@BaseUrl = https://pam-2026-p4-ifs23033-be.josua.fun:8080
 #@BaseUrl = http://127.0.0.1:8000
 
 ## Profile
@@ -126,4 +126,113 @@ Content-Type: image/png
 ### Menghapus data plant berdasarkan id-nya
 # @name DeletePlant
 DELETE {{BaseUrl}}/plants/{{plantId}}
+Content-Type: application/json
+
+
+## Watches
+## ===========================================
+
+### Mengambil semua data jam tangan
+# @name GetAllWatches
+GET {{BaseUrl}}/watches?search=
+Content-Type: application/json
+
+#> {%
+#    client.global.set("watchId", response.body.data.watches[0].id);
+#    console.log(client.global.get("watchId"))
+#%}
+
+### Menambahkan data jam tangan baru
+# @name PostWatch
+POST {{BaseUrl}}/watches
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Casio MTP 2026 Edition
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Casio MTP klasik dengan sentuhan modern 2026. Desain minimalis yang cocok untuk acara formal maupun santai.
+--WebAppBoundary
+Content-Disposition: form-data; name="price"
+
+Rp 750.000
+--WebAppBoundary
+Content-Disposition: form-data; name="specs"
+
+Diameter 40mm, Quartz Movement, Water Resistant 50M.
+--WebAppBoundary
+Content-Disposition: form-data; name="features"
+
+Penunjuk tanggal, Jarum Glow in the dark.
+--WebAppBoundary
+Content-Disposition: form-data; name="material"
+
+Stainless Steel anti karat dengan kaca Mineral Glass.
+--WebAppBoundary
+Content-Disposition: form-data; name="batteryLife"
+
+Baterai SR626SW (Tahan hingga 3 tahun).
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./example.png
+--WebAppBoundary--
+
+> {%
+    client.global.set("watchId", response.body.data.watchId);
+    console.log(client.global.get("watchId"))
+%}
+
+### Mengambil data jam tangan berdasarkan id-nya
+# @name GetWatchById
+GET {{BaseUrl}}/watches/{{watchId}}
+Content-Type: application/json
+
+### Melihat gambar jam tangan
+# @name GetWatchImageById
+GET {{BaseUrl}}/watches/{{watchId}}/image
+Content-Type: application/json
+
+### Mengubah data jam tangan (Tanpa Gambar)
+# @name PutWatchOnlyData
+PUT {{BaseUrl}}/watches/{{watchId}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="nama"
+
+Casio MTP 2026 Edition (Update)
+--WebAppBoundary
+Content-Disposition: form-data; name="deskripsi"
+
+Casio MTP klasik dengan sentuhan modern 2026. Desain minimalis yang cocok untuk acara formal.
+--WebAppBoundary
+Content-Disposition: form-data; name="price"
+
+Rp 800.000
+--WebAppBoundary
+Content-Disposition: form-data; name="specs"
+
+Diameter 40mm, Quartz Movement, Water Resistant 50M.
+--WebAppBoundary
+Content-Disposition: form-data; name="features"
+
+Penunjuk tanggal, Jarum Glow in the dark.
+--WebAppBoundary
+Content-Disposition: form-data; name="material"
+
+Stainless Steel anti karat dengan kaca Mineral Glass.
+--WebAppBoundary
+Content-Disposition: form-data; name="batteryLife"
+
+Baterai SR626SW (Tahan hingga 3 tahun).
+--WebAppBoundary--
+
+### Menghapus data jam tangan berdasarkan id-nya
+# @name DeleteWatch
+DELETE {{BaseUrl}}/watches/{{watchId}}
 Content-Type: application/json
